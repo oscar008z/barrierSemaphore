@@ -218,14 +218,14 @@ public class BlockManager
 				if(s2.isLocked()==false) {	//if the semaphore s2 is released, open the execution to all threads
 					mutex.Wait();	//use mutex to grant access to only one thread to avoid the atomic problem 
 					if(this.turnTestAndSet()==true) {	//check if the permitted thread has the right turn
-						s2.Wait();	//if the thread has the right turn, lock the semaphore s2 to keep other threads to enter
+						s2.Wait();	//if the thread has the right turn, lock the semaphore s2 to keep other threads from entering
 						phase2();	//execute phase2
 						s2.Signal();	//when complete phase2 give unlock the semaphore s2
 						mutex.Signal();	//unlock mutex to let other threads enter
 						break;	//quit the while loop
 					}
 					else {
-						System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
+						//System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
 						mutex.Signal();	//if the thread doesn't have the right turn, release the mutex to let other threads enter
 					}
 				}
@@ -329,7 +329,7 @@ public class BlockManager
 						break;
 					}
 					else {
-						System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
+						//System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
 						mutex.Signal();
 					}
 				}
@@ -416,7 +416,7 @@ public class BlockManager
 						break;
 					}
 					else {
-						System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
+						//System.out.println("thread-" + this.iTID + " has attempted but waiting for its turn to finish PHASE II");
 						mutex.Signal();
 					}
 				}
